@@ -34,4 +34,16 @@
     <string name="ai_moderation_approved">Gönderiniz Parastın AI tarafından onaylandı.</string>
     <string name="btn_create_post">Gönderi Paylaş</string>
     <string name="hint_post_content">Allah\'ın rızasına uygun bir paylaşımla hayra vesile olun...</string>
+
+    <!-- General & Portal Labels -->
+    <string name="language_selection_title">Ziman Hilbijêre / Dil Seçin</string>
+    <string name="female_area">KADIN ALANI</string>
+    <string name="male_area">ERKEK ALANI</string>
+    <string name="guest_user">Misafir Ziyaretçi</string>
+    <string name="guest_description">Giriş yapmadınız. Mela Malper içeriklerini serbestçe inceleyebilirsiniz.</string>
+    <string name="logout">Oturumu Kapat</string>
+    <string name="login_or_register">Giriş Yap veya Kayıt Ol</string>
+    <string name="categories">KATEGORİLER</string>
+    <string name="all_content">Tüm İçerikler</string>
+    <string name="share_article">Makaleyi Paylaş</string>
 </resources>

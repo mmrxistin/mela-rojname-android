@@ -24,6 +24,15 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/ivLanguage"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="Ziman / Dil"
+                android:src="@android:drawable/ic_menu_manage"
+                app:tint="@color/gold_accent" />
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnHeaderLogin"
                 style="@style/Widget.Material3.Button.TextButton"

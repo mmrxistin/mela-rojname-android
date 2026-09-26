@@ -7,6 +7,7 @@
 
 package com.ummet.mela_rojname;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,6 +15,7 @@ import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
@@ -22,6 +24,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.ummet.mela_rojname.data.LanguageManager;
 import com.ummet.mela_rojname.data.SessionManager;
 import com.ummet.mela_rojname.databinding.ActivityMainBinding;
 import com.ummet.mela_rojname.model.Gender;
@@ -37,6 +40,13 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
     private ActivityMainBinding binding;
     private SessionManager sessionManager;
+    private LanguageManager languageManager;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        LanguageManager langMgr = new LanguageManager(newBase);
+        super.attachBaseContext(LanguageManager.applyLanguage(newBase, langMgr.getLanguage()));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         setContentView(binding.getRoot());
 
         sessionManager = new SessionManager(this);
+        languageManager = new LanguageManager(this);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -63,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
             binding.bottomNavigation.setSelectedItemId(R.id.navigation_malper);
         }
 
+        binding.ivLanguage.setOnClickListener(v -> showLanguageSelectionDialog());
         binding.btnHeaderLogin.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, LoginActivity.class)));
 
         binding.ivLogout.setOnClickListener(v -> {
@@ -70,6 +82,20 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
             setupHeaderUI();
             binding.bottomNavigation.setSelectedItemId(R.id.navigation_malper);
         });
+    }
+
+    private void showLanguageSelectionDialog() {
+        String[] languages = {"Kurdî (Kurmancî)", "Türkçe", "العربية (Arabic)", "English"};
+        String[] langCodes = {LanguageManager.LANG_KURDISH, LanguageManager.LANG_TURKISH, LanguageManager.LANG_ARABIC, LanguageManager.LANG_ENGLISH};
+
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.language_selection_title)
+                .setItems(languages, (dialog, which) -> {
+                    String selectedCode = langCodes[which];
+                    languageManager.setLanguage(this, selectedCode);
+                    recreate();
+                })
+                .show();
     }
 
     @Override
@@ -88,11 +114,11 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
             User user = sessionManager.getCurrentUser();
             if (user != null && user.getGender() == Gender.FEMALE) {
-                binding.tvGenderBadge.setText("KADIN ALANI");
+                binding.tvGenderBadge.setText(R.string.female_area);
                 binding.tvGenderBadge.setTextColor(ContextCompat.getColor(this, R.color.female_rose));
                 binding.cardGenderBadge.setCardBackgroundColor(ContextCompat.getColor(this, R.color.female_rose_bg));
             } else {
-                binding.tvGenderBadge.setText("ERKEK ALANI");
+                binding.tvGenderBadge.setText(R.string.male_area);
                 binding.tvGenderBadge.setTextColor(ContextCompat.getColor(this, R.color.male_navy));
                 binding.cardGenderBadge.setCardBackgroundColor(ContextCompat.getColor(this, R.color.male_navy_bg));
             }
