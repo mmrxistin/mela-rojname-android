@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Theme Colors: Deep Islamic Emerald & Gold -->
+    <color name="primary_emerald">#004D40</color>
+    <color name="primary_emerald_dark">#00251A</color>
+    <color name="primary_emerald_light">#39796B</color>
+
+    <color name="gold_accent">#D4AF37</color>
+    <color name="gold_accent_light">#FFF176</color>
+
+    <!-- Background & Card Colors -->
+    <color name="bg_light">#F5F7F6</color>
+    <color name="card_bg_light">#FFFFFF</color>
+
+    <color name="text_primary">#1A2522</color>
+    <color name="text_secondary">#5F6D69</color>
+    <color name="divider_color">#E0E6E4</color>
+
+    <!-- Gender Specific Badge Colors -->
+    <color name="female_rose">#E91E63</color>
+    <color name="female_rose_bg">#FCE4EC</color>
+
+    <color name="male_navy">#1976D2</color>
+    <color name="male_navy_bg">#E3F2FD</color>
+
+    <!-- AI Parastin Verification Colors -->
+    <color name="ai_verified_green">#2E7D32</color>
+    <color name="ai_verified_bg">#E8F5E9</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

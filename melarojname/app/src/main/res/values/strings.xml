@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Mela Rojname</string>
+
+    <!-- Navigation Labels -->
+    <string name="nav_feed">Akış</string>
+    <string name="nav_malper">Malper</string>
+    <string name="nav_reels">Reels</string>
+    <string name="nav_messages">Mesajlar</string>
+    <string name="nav_profile">Profil</string>
+
+    <!-- Auth Strings -->
+    <string name="title_welcome">Mela Rojname\'ye Hoş Geldiniz</string>
+    <string name="subtitle_auth">İslami Hassasiyetli ve Güvenli Sosyal Medya</string>
+    <string name="label_email">E-posta Adresi</string>
+    <string name="label_password">Şifre</string>
+    <string name="label_username">Kullanıcı Adı</string>
+    <string name="label_full_name">Ad Soyad</string>
+    <string name="label_gender">Cinsiyetiniz (Değiştirilemez)</string>
+    <string name="gender_male">Erkek (MALE)</string>
+    <string name="gender_female">Kadın (FEMALE)</string>
+    <string name="btn_login">Giriş Yap</string>
+    <string name="btn_register">Kayıt Ol</string>
+    <string name="prompt_no_account">Hesabınız yok mu? Kayıt Olun</string>
+    <string name="prompt_has_account">Zaten hesabınız var mı? Giriş Yapın</string>
+
+    <!-- Sharia & Gender Safeguard Warnings -->
+    <string name="sharia_guard_title">Şeriat ve Cinsiyet Koruması</string>
+    <string name="sharia_guard_desc">Platformumuzda erkekler yalnızca erkek kullanıcıları, kadınlar ise yalnızca kadın kullanıcıları görebilir ve onlarla etkileşime girebilir.</string>
+    <string name="cross_gender_forbidden">Şeriat kuralları gereği karşı cinsiyetteki kullanıcılarla etkileşim kurulması ve mesajlaşılması engellenmiştir.</string>
+
+    <!-- AI Parastin Moderation -->
+    <string name="ai_moderation_title">Parastın AI İçerik Denetimi</string>
+    <string name="ai_moderation_checking">Gönderiniz AI denetiminden geçiriliyor...</string>
+    <string name="ai_moderation_approved">Gönderiniz Parastın AI tarafından onaylandı.</string>
+    <string name="btn_create_post">Gönderi Paylaş</string>
+    <string name="hint_post_content">Allah\'ın rızasına uygun bir paylaşımla hayra vesile olun...</string>
+</resources>

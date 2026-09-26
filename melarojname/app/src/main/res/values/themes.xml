@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Melarojname" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand colors -->
+        <item name="colorPrimary">@color/primary_emerald</item>
+        <item name="colorPrimaryDark">@color/primary_emerald_dark</item>
+        <item name="colorSecondary">@color/gold_accent</item>
+        <item name="android:statusBarColor">@color/primary_emerald_dark</item>
+        <item name="android:windowBackground">@color/bg_light</item>
+    </style>
+
+    <style name="Theme.Melarojname" parent="Base.Theme.Melarojname" />
+</resources>
