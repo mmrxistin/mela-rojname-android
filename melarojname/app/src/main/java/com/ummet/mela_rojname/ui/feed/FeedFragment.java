@@ -8,6 +8,7 @@
 package com.ummet.mela_rojname.ui.feed;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import com.ummet.mela_rojname.data.SessionManager;
 import com.ummet.mela_rojname.databinding.FragmentFeedBinding;
 import com.ummet.mela_rojname.model.Gender;
 import com.ummet.mela_rojname.model.Post;
+import com.ummet.mela_rojname.model.Story;
 import com.ummet.mela_rojname.model.User;
 import com.ummet.mela_rojname.network.ApiClient;
 import com.ummet.mela_rojname.network.ApiService;
@@ -40,10 +42,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FeedFragment extends Fragment {
+public class FeedFragment extends Fragment implements StoryAdapter.OnStoryClickListener {
 
     private FragmentFeedBinding binding;
-    private PostAdapter adapter;
+    private PostAdapter postAdapter;
+    private StoryAdapter storyAdapter;
     private SessionManager sessionManager;
 
     @Nullable
@@ -57,13 +60,20 @@ public class FeedFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        sessionManager = new SessionManager(requireContext());
-        adapter = new PostAdapter();
+        Context context = getContext();
+        if (context == null) return;
 
-        binding.rvPosts.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.rvPosts.setAdapter(adapter);
+        sessionManager = new SessionManager(context);
+        postAdapter = new PostAdapter();
+        storyAdapter = new StoryAdapter(this);
 
-        binding.swipeRefresh.setOnRefreshListener(this::loadPosts);
+        binding.rvStories.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+        binding.rvStories.setAdapter(storyAdapter);
+
+        binding.rvPosts.setLayoutManager(new LinearLayoutManager(context));
+        binding.rvPosts.setAdapter(postAdapter);
+
+        binding.swipeRefresh.setOnRefreshListener(this::loadData);
         binding.fabAddPost.setOnClickListener(v -> {
             if (!sessionManager.isLoggedIn()) {
                 new AlertDialog.Builder(requireContext())
@@ -77,21 +87,77 @@ public class FeedFragment extends Fragment {
             showCreatePostDialog();
         });
 
+        loadData();
+    }
+
+    private void loadData() {
+        loadStories();
         loadPosts();
     }
 
+    private void loadStories() {
+        if (binding == null || getContext() == null) return;
+
+        User currentUser = sessionManager.getCurrentUser();
+        ApiService apiService = ApiClient.getInstance(getContext());
+
+        apiService.getStories(currentUser.getGender().name()).enqueue(new Callback<List<Story>>() {
+            @Override
+            public void onResponse(Call<List<Story>> call, Response<List<Story>> response) {
+                if (binding == null || !isAdded()) return;
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Story> safeStories = GenderGuard.filterStories(currentUser, response.body());
+                    storyAdapter.setStories(safeStories);
+                } else {
+                    loadDemoStories(currentUser);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Story>> call, Throwable t) {
+                if (binding == null || !isAdded()) return;
+                loadDemoStories(currentUser);
+            }
+        });
+    }
+
+    private void loadDemoStories(User currentUser) {
+        if (binding == null || !isAdded()) return;
+
+        List<Story> demoStories = new ArrayList<>();
+        Gender gender = currentUser.getGender();
+
+        if (gender == Gender.FEMALE) {
+            User u1 = new User("s1", "meryem", "Meryem", Gender.FEMALE, null, "");
+            User u2 = new User("s2", "fatma", "Fatma", Gender.FEMALE, null, "");
+            demoStories.add(new Story("st1", u1, null, "Bugünün ayet meali...", "10 dk"));
+            demoStories.add(new Story("st2", u2, null, "Tefsir sohbeti duyurusu", "1 saat"));
+        } else {
+            User u1 = new User("s3", "ahmed", "Ahmed", Gender.MALE, null, "");
+            User u2 = new User("s4", "hamza", "Hamza", Gender.MALE, null, "");
+            demoStories.add(new Story("st3", u1, null, "Cuma sohbeti hatırası", "20 dk"));
+            demoStories.add(new Story("st4", u2, null, "Kuran tilaveti", "2 saat"));
+        }
+
+        List<Story> safeStories = GenderGuard.filterStories(currentUser, demoStories);
+        storyAdapter.setStories(safeStories);
+    }
+
     private void loadPosts() {
+        if (binding == null || getContext() == null) return;
+
         binding.swipeRefresh.setRefreshing(true);
         User currentUser = sessionManager.getCurrentUser();
-        ApiService apiService = ApiClient.getInstance(requireContext());
+        ApiService apiService = ApiClient.getInstance(getContext());
 
         apiService.getPosts(currentUser.getGender().name()).enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if (binding == null || !isAdded()) return;
                 binding.swipeRefresh.setRefreshing(false);
                 if (response.isSuccessful() && response.body() != null) {
                     List<Post> filteredPosts = GenderGuard.filterPosts(currentUser, response.body());
-                    adapter.setPosts(filteredPosts);
+                    postAdapter.setPosts(filteredPosts);
                 } else {
                     loadDemoPosts(currentUser);
                 }
@@ -99,6 +165,7 @@ public class FeedFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
+                if (binding == null || !isAdded()) return;
                 binding.swipeRefresh.setRefreshing(false);
                 loadDemoPosts(currentUser);
             }
@@ -106,6 +173,8 @@ public class FeedFragment extends Fragment {
     }
 
     private void loadDemoPosts(User currentUser) {
+        if (binding == null || !isAdded()) return;
+
         List<Post> demoList = new ArrayList<>();
         Gender userGender = currentUser.getGender();
 
@@ -122,7 +191,22 @@ public class FeedFragment extends Fragment {
         }
 
         List<Post> safePosts = GenderGuard.filterPosts(currentUser, demoList);
-        adapter.setPosts(safePosts);
+        postAdapter.setPosts(safePosts);
+    }
+
+    @Override
+    public void onStoryClick(Story story) {
+        if (story == null || story.getUser() == null) return;
+        new AlertDialog.Builder(requireContext())
+                .setTitle(story.getUser().getFullName() + " - Hikaye")
+                .setMessage(story.getCaption() != null ? story.getCaption() : "Hikaye içeriği")
+                .setPositiveButton("Kapat", null)
+                .show();
+    }
+
+    @Override
+    public void onAddStoryClick() {
+        // Add story option
     }
 
     private void showCreatePostDialog() {
