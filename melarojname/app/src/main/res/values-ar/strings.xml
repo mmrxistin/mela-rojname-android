@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">ملا روزنامه</string>
+
+    <!-- Navigation Labels -->
+    <string name="nav_feed">المنشورات</string>
+    <string name="nav_malper">الموقع</string>
+    <string name="nav_reels">ريلز</string>
+    <string name="nav_messages">الرسائل</string>
+    <string name="nav_profile">الملف الشخصي</string>
+
+    <!-- Auth Strings -->
+    <string name="title_welcome">أهلاً بكم في ملا روزنامه</string>
+    <string name="subtitle_auth">وسائل تواصل اجتماعي آمنة وفق الشريعة الإسلامية</string>
+    <string name="label_email">البريد الإلكتروني</string>
+    <string name="label_password">كلمة المرور</string>
+    <string name="label_username">اسم المستخدم</string>
+    <string name="label_full_name">الاسم الكامل</string>
+    <string name="label_gender">الجنس (غير قابل للتغيير)</string>
+    <string name="gender_male">رجل (MALE)</string>
+    <string name="gender_female">امرأة (FEMALE)</string>
+    <string name="btn_login">تسجيل الدخول</string>
+    <string name="btn_register">إنشاء حساب</string>
+    <string name="prompt_no_account">ليس لديك حساب؟ سجل الآن</string>
+    <string name="prompt_has_account">لديك حساب بالفعل؟ سجل الدخول</string>
+
+    <!-- Sharia & Gender Safeguard Warnings -->
+    <string name="sharia_guard_title">حماية الشريعة والفصل بين الجنسين</string>
+    <string name="sharia_guard_desc">في منصتنا، يمكن للرجال فقط رؤية الرجال، والنساء فقط رؤية النساء والتفاعل معهن.</string>
+    <string name="cross_gender_forbidden">وفقاً لأحكام الشريعة الإسلامية، يمنع التفاعل والمراسلة مع الجنس الآخر.</string>
+
+    <!-- AI Parastin Moderation -->
+    <string name="ai_moderation_title">فحص المحتوى الذكي Parastın AI</string>
+    <string name="ai_moderation_checking">جاري فحص منشورك بواسطة الذكاء الاصطناعي...</string>
+    <string name="ai_moderation_approved">تمت الموافقة على منشورك بواسطة Parastın AI.</string>
+    <string name="btn_create_post">نشر منشور</string>
+    <string name="hint_post_content">اكتب شيئاً لوجه الله تعالى يبتغى به الخير...</string>
+
+    <!-- General & Portal Labels -->
+    <string name="language_selection_title">اختر اللغة / Select Language</string>
+    <string name="female_area">قسم النساء</string>
+    <string name="male_area">قسم الرجال</string>
+    <string name="guest_user">زائر ضيف</string>
+    <string name="guest_description">لم تقم بتسجيل الدخول. يمكنك تصفح محتوى ملا روزنامه بحرية.</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="login_or_register">تسجيل الدخول أو إنشاء حساب</string>
+    <string name="categories">الأقسام</string>
+    <string name="all_content">جميع المحتويات</string>
+    <string name="share_article">مشاركة المقال</string>
+</resources>

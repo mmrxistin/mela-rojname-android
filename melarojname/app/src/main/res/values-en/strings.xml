@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Mela Rojname</string>
+
+    <!-- Navigation Labels -->
+    <string name="nav_feed">Feed</string>
+    <string name="nav_malper">Malper</string>
+    <string name="nav_reels">Reels</string>
+    <string name="nav_messages">Messages</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Auth Strings -->
+    <string name="title_welcome">Welcome to Mela Rojname</string>
+    <string name="subtitle_auth">Islamic Guidelines Compliant Social Media</string>
+    <string name="label_email">Email Address</string>
+    <string name="label_password">Password</string>
+    <string name="label_username">Username</string>
+    <string name="label_full_name">Full Name</string>
+    <string name="label_gender">Gender (Immutable)</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="btn_login">Log In</string>
+    <string name="btn_register">Register</string>
+    <string name="prompt_no_account">Don\'t have an account? Register</string>
+    <string name="prompt_has_account">Already have an account? Log In</string>
+
+    <!-- Sharia & Gender Safeguard Warnings -->
+    <string name="sharia_guard_title">Sharia &amp; Gender Safeguard</string>
+    <string name="sharia_guard_desc">On our platform, male users can only see and interact with males, and female users can only see and interact with females.</string>
+    <string name="cross_gender_forbidden">Cross-gender interaction and messaging are strictly prohibited in accordance with Sharia principles.</string>
+
+    <!-- AI Parastin Moderation -->
+    <string name="ai_moderation_title">Parastın AI Content Moderation</string>
+    <string name="ai_moderation_checking">Your post is being inspected by AI...</string>
+    <string name="ai_moderation_approved">Your post was approved by Parastın AI.</string>
+    <string name="btn_create_post">Create Post</string>
+    <string name="hint_post_content">Share something beneficial for the sake of Allah...</string>
+
+    <!-- General & Portal Labels -->
+    <string name="language_selection_title">Select Language / Ziman Hilbijêre</string>
+    <string name="female_area">SISTER AREA</string>
+    <string name="male_area">BROTHER AREA</string>
+    <string name="guest_user">Guest Visitor</string>
+    <string name="guest_description">You are not logged in. You can freely explore Mela Malper content.</string>
+    <string name="logout">Log Out</string>
+    <string name="login_or_register">Log In or Register</string>
+    <string name="categories">CATEGORIES</string>
+    <string name="all_content">All Content</string>
+    <string name="share_article">Share Article</string>
+</resources>

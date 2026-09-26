@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Mela Rojname</string>
+
+    <!-- Navigation Labels -->
+    <string name="nav_feed">Lêgerîn</string>
+    <string name="nav_malper">Malper</string>
+    <string name="nav_reels">Reels</string>
+    <string name="nav_messages">Peyam</string>
+    <string name="nav_profile">Profîl</string>
+
+    <!-- Auth Strings -->
+    <string name="title_welcome">Hûn Bi Xêr Hatin Mela Rojname</string>
+    <string name="subtitle_auth">Medyaya Civakî Ya Ewle û Bi Rêgezên Îslamî</string>
+    <string name="label_email">Navnîşana E-postayê</string>
+    <string name="label_password">Nîşana Veşartî (Şîfre)</string>
+    <string name="label_username">Navê Bikarhêner</string>
+    <string name="label_full_name">Nav û Paşnav</string>
+    <string name="label_gender">Reregenaza We (Zayend)</string>
+    <string name="gender_male">Mêr (MALE)</string>
+    <string name="gender_female">Jin (FEMALE)</string>
+    <string name="btn_login">Têkeve</string>
+    <string name="btn_register">Tirse Bibe / Qeyd Bibe</string>
+    <string name="prompt_no_account">Accounta we tune ye? Qeyd bibin</string>
+    <string name="prompt_has_account">Accounta we heye? Têkevin</string>
+
+    <!-- Sharia & Gender Safeguard Warnings -->
+    <string name="sharia_guard_title">Parastina Şerîatê û Zayendê</string>
+    <string name="sharia_guard_desc">Li ser platforma me mêr tenê dikarin mêran, jin jî tenê dikarin jinan bibînin û peywendiyê deynin.</string>
+    <string name="cross_gender_forbidden">Li gorî pîvanên şerîatê peywendî û peyamdana ligel zayenda dijber hatiye astengkirin.</string>
+
+    <!-- AI Parastin Moderation -->
+    <string name="ai_moderation_title">Parastın AI Kontrola Naverokê</string>
+    <string name="ai_moderation_checking">Parvekirina we ji aliyê AI ve tê kontrolkirin...</string>
+    <string name="ai_moderation_approved">Parvekirina we ji aliyê Parastın AI ve hat pejirandin.</string>
+    <string name="btn_create_post">Parve Bike</string>
+    <string name="hint_post_content">Bi parvekirineke xêrê re bibin wesîleya xêrê...</string>
+
+    <!-- General & Portal Labels -->
+    <string name="language_selection_title">Ziman Hilbijêre / Dil Seçin</string>
+    <string name="female_area">QADA JINAN</string>
+    <string name="male_area">QADA MÊRAN</string>
+    <string name="guest_user">Mêvanê Bikarhêner</string>
+    <string name="guest_description">We têketin nekiriye. Hûn dikarin naveroka Mela Malper azadane bixwînin.</string>
+    <string name="logout">Derkeve</string>
+    <string name="login_or_register">Têkeve an Qeyd Bibe</string>
+    <string name="categories">KATEGORÎ</string>
+    <string name="all_content">Hemû Naverok</string>
+    <string name="share_article">Gotarê Parve Bike</string>
+</resources>

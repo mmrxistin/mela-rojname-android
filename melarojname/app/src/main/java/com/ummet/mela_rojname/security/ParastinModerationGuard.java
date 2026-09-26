@@ -29,18 +29,18 @@ public class ParastinModerationGuard {
      * Inspects and checks post/reel/profile content against rasteqin.vercel.app/parastin AI moderation rules.
      * Only approved content can be uploaded or updated.
      */
-    public static void checkContent(Context context, String contentType, String text, String mediaUrl, ModerationCallback callback) {
-        if (text == null) text = "";
+    public static void checkContent(Context context, String contentType, String rawText, String mediaUrl, ModerationCallback callback) {
+        String sanitizedText = SecuritySanitizer.sanitizeInput(rawText);
 
         // Client-side quick filter for inappropriate keywords
-        String lowerText = text.toLowerCase();
+        String lowerText = sanitizedText.toLowerCase();
         if (lowerText.contains("kötü") || lowerText.contains("harama") || lowerText.contains("kufur")) {
             callback.onRejected("İçerik İslami ve ahlaki kurallara aykırı unsurlar içerdiği için Parastın AI tarafından reddedildi.");
             return;
         }
 
         ApiService apiService = ApiClient.getInstance(context);
-        ModerationRequest request = new ModerationRequest(contentType, text, mediaUrl);
+        ModerationRequest request = new ModerationRequest(contentType, sanitizedText, mediaUrl);
 
         apiService.checkContentWithAi(request).enqueue(new Callback<ModerationResult>() {
             @Override
@@ -54,14 +54,14 @@ public class ParastinModerationGuard {
                         callback.onRejected(reason);
                     }
                 } else {
-                    // Fallback approval for local demo/dev mode if server endpoint isn't returning 200 OK
+                    // Fallback approval for local demo/dev mode
                     callback.onApproved();
                 }
             }
 
             @Override
             public void onFailure(Call<ModerationResult> call, Throwable t) {
-                // Network error fallback - allow upload with local safety warning
+                // Network error fallback
                 callback.onApproved();
             }
         });
