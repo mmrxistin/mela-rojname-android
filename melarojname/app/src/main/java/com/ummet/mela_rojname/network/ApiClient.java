@@ -10,6 +10,7 @@ package com.ummet.mela_rojname.network;
 import android.content.Context;
 
 import com.ummet.mela_rojname.data.SessionManager;
+import com.ummet.mela_rojname.model.Gender;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -25,7 +26,8 @@ public class ApiClient {
 
     public static synchronized ApiService getInstance(Context context) {
         if (apiService == null) {
-            SessionManager sessionManager = new SessionManager(context.getApplicationContext());
+            Context appContext = context != null ? context.getApplicationContext() : context;
+            SessionManager sessionManager = new SessionManager(appContext);
 
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -39,8 +41,13 @@ public class ApiClient {
                     builder.header("Authorization", "Bearer " + token);
                 }
 
-                // Attach logged in user gender to header for strict backend guard
-                builder.header("X-User-Gender", sessionManager.getUserGender().name());
+                // Attach logged in user gender safely
+                Gender gender = sessionManager.getUserGender();
+                if (gender != null) {
+                    builder.header("X-User-Gender", gender.name());
+                } else {
+                    builder.header("X-User-Gender", Gender.MALE.name());
+                }
 
                 return chain.proceed(builder.build());
             };

@@ -7,6 +7,7 @@
 
 package com.ummet.mela_rojname.ui.malper;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -52,10 +53,13 @@ public class MalperFragment extends Fragment implements MalperCategoryAdapter.On
         categoryAdapter = new MalperCategoryAdapter(this);
         articleAdapter = new MalperArticleAdapter(this);
 
-        binding.rvCategories.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        Context context = getContext();
+        if (context == null) return;
+
+        binding.rvCategories.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         binding.rvCategories.setAdapter(categoryAdapter);
 
-        binding.rvArticles.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.rvArticles.setLayoutManager(new LinearLayoutManager(context));
         binding.rvArticles.setAdapter(articleAdapter);
 
         binding.swipeRefresh.setOnRefreshListener(this::loadMalperData);
@@ -64,17 +68,20 @@ public class MalperFragment extends Fragment implements MalperCategoryAdapter.On
     }
 
     private void loadMalperData() {
+        if (binding == null || getContext() == null) return;
+
         binding.swipeRefresh.setRefreshing(true);
-        ApiService apiService = ApiClient.getInstance(requireContext());
+        ApiService apiService = ApiClient.getInstance(getContext());
 
         apiService.getMalperContent().enqueue(new Callback<MalperResponse>() {
             @Override
             public void onResponse(Call<MalperResponse> call, Response<MalperResponse> response) {
+                if (binding == null || !isAdded()) return;
                 binding.swipeRefresh.setRefreshing(false);
                 if (response.isSuccessful() && response.body() != null) {
                     MalperResponse data = response.body();
-                    categoryAdapter.setCategories(data.getCategories());
-                    articleAdapter.setArticles(data.getFeaturedArticles());
+                    if (data.getCategories() != null) categoryAdapter.setCategories(data.getCategories());
+                    if (data.getFeaturedArticles() != null) articleAdapter.setArticles(data.getFeaturedArticles());
                 } else {
                     loadDemoMalperData();
                 }
@@ -82,6 +89,7 @@ public class MalperFragment extends Fragment implements MalperCategoryAdapter.On
 
             @Override
             public void onFailure(Call<MalperResponse> call, Throwable t) {
+                if (binding == null || !isAdded()) return;
                 binding.swipeRefresh.setRefreshing(false);
                 loadDemoMalperData();
             }
@@ -89,6 +97,8 @@ public class MalperFragment extends Fragment implements MalperCategoryAdapter.On
     }
 
     private void loadDemoMalperData() {
+        if (binding == null || !isAdded()) return;
+
         List<MalperCategory> categories = new ArrayList<>();
         categories.add(new MalperCategory("c1", "Tüm İçerikler", "ALL", 12));
         categories.add(new MalperCategory("c2", "Kuran-ı Kerim", "KURAN", 8));
@@ -120,16 +130,19 @@ public class MalperFragment extends Fragment implements MalperCategoryAdapter.On
 
     @Override
     public void onCategoryClick(MalperCategory category) {
+        if (category == null || binding == null || !isAdded() || getContext() == null) return;
+
         if ("ALL".equals(category.getCode())) {
             loadMalperData();
             return;
         }
 
         binding.swipeRefresh.setRefreshing(true);
-        ApiService apiService = ApiClient.getInstance(requireContext());
+        ApiService apiService = ApiClient.getInstance(getContext());
         apiService.getMalperArticles(category.getCode()).enqueue(new Callback<List<MalperArticle>>() {
             @Override
             public void onResponse(Call<List<MalperArticle>> call, Response<List<MalperArticle>> response) {
+                if (binding == null || !isAdded()) return;
                 binding.swipeRefresh.setRefreshing(false);
                 if (response.isSuccessful() && response.body() != null) {
                     articleAdapter.setArticles(response.body());
@@ -140,6 +153,7 @@ public class MalperFragment extends Fragment implements MalperCategoryAdapter.On
 
             @Override
             public void onFailure(Call<List<MalperArticle>> call, Throwable t) {
+                if (binding == null || !isAdded()) return;
                 binding.swipeRefresh.setRefreshing(false);
                 loadDemoMalperData();
             }
@@ -148,7 +162,9 @@ public class MalperFragment extends Fragment implements MalperCategoryAdapter.On
 
     @Override
     public void onArticleClick(MalperArticle article) {
-        Intent intent = new Intent(requireContext(), MalperDetailActivity.class);
+        if (article == null || getContext() == null) return;
+
+        Intent intent = new Intent(getContext(), MalperDetailActivity.class);
         intent.putExtra("article_id", article.getId());
         intent.putExtra("article_title", article.getTitle());
         intent.putExtra("article_category", article.getCategory());

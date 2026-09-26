@@ -61,18 +61,14 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         // Default tab on app launch: MALPER
         if (savedInstanceState == null) {
             binding.bottomNavigation.setSelectedItemId(R.id.navigation_malper);
-            loadFragment(new MalperFragment());
         }
 
-        binding.btnHeaderLogin.setOnClickListener(v -> {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        });
+        binding.btnHeaderLogin.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, LoginActivity.class)));
 
         binding.ivLogout.setOnClickListener(v -> {
             sessionManager.logout();
             setupHeaderUI();
             binding.bottomNavigation.setSelectedItemId(R.id.navigation_malper);
-            loadFragment(new MalperFragment());
         });
     }
 
@@ -83,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     }
 
     private void setupHeaderUI() {
+        if (binding == null) return;
+
         if (sessionManager.isLoggedIn()) {
             binding.btnHeaderLogin.setVisibility(View.GONE);
             binding.cardGenderBadge.setVisibility(View.VISIBLE);
@@ -130,9 +128,10 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     }
 
     private void loadFragment(Fragment fragment) {
+        if (isFinishing() || isDestroyed()) return;
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragmentContainer, fragment)
-                .commit();
+                .commitAllowingStateLoss();
     }
 }
