@@ -11,6 +11,7 @@ import com.ummet.mela_rojname.model.Gender;
 import com.ummet.mela_rojname.model.Message;
 import com.ummet.mela_rojname.model.Post;
 import com.ummet.mela_rojname.model.Reel;
+import com.ummet.mela_rojname.model.Story;
 import com.ummet.mela_rojname.model.User;
 
 import java.util.ArrayList;
@@ -69,6 +70,21 @@ public class GenderGuard {
         for (User user : users) {
             if (canInteract(currentUser, user)) {
                 filtered.add(user);
+            }
+        }
+        return filtered;
+    }
+
+    /**
+     * Filters list of stories to return ONLY stories created by users of the SAME gender.
+     */
+    public static List<Story> filterStories(User currentUser, List<Story> stories) {
+        List<Story> filtered = new ArrayList<>();
+        if (currentUser == null || stories == null) return filtered;
+
+        for (Story story : stories) {
+            if (story.getUser() != null && canInteract(currentUser, story.getUser())) {
+                filtered.add(story);
             }
         }
         return filtered;

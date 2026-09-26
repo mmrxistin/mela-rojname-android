@@ -13,6 +13,7 @@ import com.ummet.mela_rojname.model.Message;
 import com.ummet.mela_rojname.model.ModerationResult;
 import com.ummet.mela_rojname.model.Post;
 import com.ummet.mela_rojname.model.Reel;
+import com.ummet.mela_rojname.model.Story;
 import com.ummet.mela_rojname.model.User;
 import com.ummet.mela_rojname.network.dto.AuthResponse;
 import com.ummet.mela_rojname.network.dto.LoginRequest;
@@ -53,6 +54,12 @@ public interface ApiService {
 
     @POST("sosyal/reels")
     Call<Reel> createReel(@Body Reel reel);
+
+    @GET("sosyal/stories")
+    Call<List<Story>> getStories(@Query("gender") String gender);
+
+    @POST("sosyal/stories")
+    Call<Story> createStory(@Body Story story);
 
     @GET("sosyal/malper")
     Call<MalperResponse> getMalperContent();
