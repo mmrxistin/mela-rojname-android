@@ -20,7 +20,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    private static final String BASE_URL = "https://rasteqin.vercel.app/api/";
+    private static final String BASE_URL = "https://rasteqin.vercel.app/api/mobile/v1/";
     private static Retrofit retrofit = null;
     private static ApiService apiService = null;
 

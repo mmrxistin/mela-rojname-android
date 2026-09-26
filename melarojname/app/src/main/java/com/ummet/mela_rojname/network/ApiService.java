@@ -31,45 +31,48 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
+    // Auth Endpoints
     @POST("auth/login")
     Call<AuthResponse> login(@Body LoginRequest request);
 
     @POST("auth/register")
     Call<AuthResponse> register(@Body RegisterRequest request);
 
-    @GET("users/me")
+    @GET("auth/me")
     Call<User> getCurrentUser();
 
-    @GET("users")
-    Call<List<User>> getUsers(@Query("gender") String gender);
-
-    @GET("posts")
+    // Sosyal / Feed / Reels / Malper Endpoints
+    @GET("sosyal/posts")
     Call<List<Post>> getPosts(@Query("gender") String gender);
 
-    @POST("posts")
+    @POST("sosyal/posts")
     Call<Post> createPost(@Body Post post);
 
-    @GET("reels")
+    @GET("sosyal/reels")
     Call<List<Reel>> getReels(@Query("gender") String gender);
 
-    @POST("reels")
+    @POST("sosyal/reels")
     Call<Reel> createReel(@Body Reel reel);
 
-    @POST("parastin/check")
-    Call<ModerationResult> checkContentWithAi(@Body ModerationRequest request);
-
-    @GET("messages/{recipientId}")
-    Call<List<Message>> getMessages(@Path("recipientId") String recipientId);
-
-    @POST("messages")
-    Call<Message> sendMessage(@Body MessageRequest request);
-
-    @POST("users/{id}/follow")
-    Call<Void> followUser(@Path("id") String userId);
-
-    @GET("malper")
+    @GET("sosyal/malper")
     Call<MalperResponse> getMalperContent();
 
-    @GET("malper/articles")
+    @GET("sosyal/malper/articles")
     Call<List<MalperArticle>> getMalperArticles(@Query("category") String category);
+
+    // Etkilesim / Messages / Follow / Parastin AI Endpoints
+    @GET("etkilesim/users")
+    Call<List<User>> getUsers(@Query("gender") String gender);
+
+    @POST("etkilesim/users/{id}/follow")
+    Call<Void> followUser(@Path("id") String userId);
+
+    @GET("etkilesim/messages/{recipientId}")
+    Call<List<Message>> getMessages(@Path("recipientId") String recipientId);
+
+    @POST("etkilesim/messages")
+    Call<Message> sendMessage(@Body MessageRequest request);
+
+    @POST("etkilesim/parastin/check")
+    Call<ModerationResult> checkContentWithAi(@Body ModerationRequest request);
 }
